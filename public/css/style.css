@@ -17,6 +17,11 @@ header
 	padding: 1em;
 }
 
+li
+{
+	margin: 10px 0;
+}
+
 .page-content
 {
 	margin: auto;
@@ -32,4 +37,17 @@ header
 {
 	font-size: 0.75em;
 	color: grey;
+}
+
+.note-btn
+{
+	font-size: 0.75em;
+	border-radius: 100%;
+}
+
+.note-edit
+{
+	border-radius: 10px;
+	padding: 0 10px;
+	border: 1px solid green;
 }

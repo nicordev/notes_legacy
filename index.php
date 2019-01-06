@@ -2,6 +2,7 @@
 
 $db = dbConnect('localhost', 'db_note', 'root', '');
 $notes = getNotes($db);
+$selectedNote = getSelectedNote($db);
 
 // Functions
 
@@ -71,18 +72,35 @@ function showNotes(array $notes)
 	foreach ($notes as $note) {
 ?>
 	<li>
-		<span class="note-content"><?= $note['n_content'] ?></span><br>
+		<div>
+<?php
+		showNoteContent($note);
+?>
+		</div>
+		<div>
 <?php
 		if (!empty($note['n_creation_date']))
 		{
 ?>
-		<span class="info-date">Créée le <?= $note['n_creation_date'] ?></span>
+			<span class="info-date">Créée le <?= $note['n_creation_date'] ?></span>
 <?php
 		}
 		if (!empty($note['n_modification_date']))
 		{
 ?>
-		<span class="info-date">Modifiée le <?= $note['n_modification_date'] ?></span>
+			<span class="info-date">Modifiée le <?= $note['n_modification_date'] ?></span>
+<?php
+		}
+?>
+		</div>
+<?php
+		if (!(isset($_POST['n_id']) && $_POST['n_id'] === $note['n_id']))
+		{
+?>
+		<form action="index.php" method="post">
+			<input type="hidden" name="n_id" <?= 'value="' . $note['n_id'] . '"' ?>>
+			<button class="note-btn" type="submit">🖉</button>
+		</form>
 <?php
 		}
 ?>
@@ -94,17 +112,87 @@ function showNotes(array $notes)
 <?php
 }
 
+/**
+ * Return either a note in a form to edit it or just the note to read
+ * @param  array $note the note to change
+ * @return string the HTML code of the form to change the note
+ */
+function showNoteContent($note)
+{
+	// We show a form to edit the note
+	if (isset($_POST['n_id']) && $_POST['n_id'] === $note['n_id'])
+	{
+?>
+			<form action="index.php" method="post">
+				<input class="note-edit" type="text" name="n_content" <?= 'value="' . $note['n_content'] . '"' ?>>
+				<input class="note-btn" type="submit" value="🗸">
+			</form>
+<?php
+	}
+	// We show just the note to read
+	else
+	{
+?>
+			<span class="note-content"><?= $note['n_content'] ?></span>
+<?php
+	}
+}
+
+/**
+ * Add a new note in the database. Uses $_POST.
+ */
+function addANewNote()
+{
+	if 
+}
+
+/**
+ * Get a note from its id
+ * @param PDO $db the database
+ * @return string the content of the note
+ */
+function getSelectedNote($db)
+{
+	if (isset($_POST['n_id']))
+	{
+		$query = 'SELECT n_content
+			FROM dn_note
+			WHERE n_id = :id';
+		$requestNote = $db->prepare($query);
+		$requestNote->execute(array(
+			'id' => $_POST['n_id']
+		));
+		$note = $requestNote->fetch()['n_content'];
+		
+		return $note;
+	}
+
+	return false;
+}
 
 
 // View
 ob_start();
 ?>
 <section class="page-content">
-	<!-- Notes enregistrées -->
+	<!-- Saved notes -->
 	<div id="notes-wrapper">
 <?php
 showNotes($notes);
 ?>
+	</div>
+
+	<!-- Add a new note -->
+	<div id="new-note-form-wrapper">
+		<form method="post" action="index.php">
+			<p>
+				<label for="new-note-content">Note à ajouter</label><br>
+				<input type="text" name="n_content" id="new-note-content">
+			</p>
+			<p>
+				<input type="submit" value="Ajouter une note">
+			</p>
+		</form>
 	</div>
 </section>
 <?php
