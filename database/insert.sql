@@ -1,5 +1,5 @@
 INSERT INTO dn_note(n_creation_date, n_content)
-VALUES (NOW(), 'Aller à la déchêtterie'),
+VALUES (NOW(), 'Aller à la déchetterie'),
 	(NOW(), 'Faire le point sur les prénoms'),
 	(NOW(), 'Faire un framework perso pour simplifier HTML et CSS');
 
