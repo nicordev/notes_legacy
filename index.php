@@ -9,9 +9,15 @@ if (isset($_POST['n_content']) AND isset($_POST['add_a_note']))
 	header('Location: index.php');
 }
 
-if (isset($_POST['n_content']) AND isset($_POST['edit_a_note']))
+if (isset($_POST['n_id']) AND isset($_POST['edit_a_note']))
 {
 	editANote($db);
+	header('Location: index.php');
+}
+
+if (isset($_POST['n_id']) AND isset($_POST['delete_a_note']))
+{
+	deleteANote($db);
 	header('Location: index.php');
 }
 
@@ -134,11 +140,18 @@ function showNoteContent($note)
 	if (isset($_POST['n_id']) && $_POST['n_id'] === $note['n_id'])
 	{
 ?>
+			<!-- Edit the note -->
 			<form action="index.php" method="post">
 				<input class="note-edit" type="text" name="n_content" <?= 'value="' . $note['n_content'] . '"' ?>>
 				<input type="hidden" name="edit_a_note">
 				<input type="hidden" name="n_id" <?= 'value="' . $_POST['n_id'] . '"' ?>>
 				<input class="note-btn" type="submit" value="🗸">
+			</form>
+			<!-- Delete the note -->
+			<form action="index.php" method="post">
+				<input type="hidden" name="delete_a_note">
+				<input type="hidden" name="n_id" <?= 'value="' . $_POST['n_id'] . '"' ?>>
+				<input class="note-btn" type="submit" value="❌">
 			</form>
 <?php
 	}
@@ -178,6 +191,18 @@ function editANote($db)
 		'content' => $_POST['n_content'],
 		'id' => $_POST['n_id']
 	));
+}
+
+/**
+ * Delete a note in the database. Uses $_POST.
+ * @param  PDO $db the database
+ */
+function deleteANote($db)
+{
+	$query = 'DELETE FROM dn_note
+		WHERE n_id = :id';
+	$requestDelete = $db->prepare($query);
+	$requestDelete->execute(array('id' => $_POST['n_id']));
 }
 
 
