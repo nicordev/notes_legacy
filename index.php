@@ -2,7 +2,18 @@
 
 $db = dbConnect('localhost', 'db_note', 'root', '');
 $notes = getNotes($db);
-$selectedNote = getSelectedNote($db);
+
+if (isset($_POST['n_content']) AND isset($_POST['add_a_note']))
+{
+	addANewNote($db);
+	header('Location: index.php');
+}
+
+if (isset($_POST['n_content']) AND isset($_POST['edit_a_note']))
+{
+	editANote($db);
+	header('Location: index.php');
+}
 
 // Functions
 
@@ -125,6 +136,8 @@ function showNoteContent($note)
 ?>
 			<form action="index.php" method="post">
 				<input class="note-edit" type="text" name="n_content" <?= 'value="' . $note['n_content'] . '"' ?>>
+				<input type="hidden" name="edit_a_note">
+				<input type="hidden" name="n_id" <?= 'value="' . $_POST['n_id'] . '"' ?>>
 				<input class="note-btn" type="submit" value="🗸">
 			</form>
 <?php
@@ -140,34 +153,31 @@ function showNoteContent($note)
 
 /**
  * Add a new note in the database. Uses $_POST.
+ * @param PDO $db the database
  */
-function addANewNote()
+function addANewNote($db)
 {
-	if 
+	$query = 'INSERT INTO dn_note(n_creation_date, n_content)
+		VALUES (NOW(), ?)';
+	$requestAdd = $db->prepare($query);
+	$requestAdd->execute(array($_POST['n_content']));
 }
 
 /**
- * Get a note from its id
- * @param PDO $db the database
- * @return string the content of the note
+ * Edit a note in the database. Uses $_POST.
+ * @param  PDO] $db the database
  */
-function getSelectedNote($db)
+function editANote($db)
 {
-	if (isset($_POST['n_id']))
-	{
-		$query = 'SELECT n_content
-			FROM dn_note
-			WHERE n_id = :id';
-		$requestNote = $db->prepare($query);
-		$requestNote->execute(array(
-			'id' => $_POST['n_id']
-		));
-		$note = $requestNote->fetch()['n_content'];
-		
-		return $note;
-	}
+	$query = 'UPDATE dn_note
+		SET n_content = :content, n_modification_date = NOW()
+		WHERE n_id = :id';
 
-	return false;
+	$requestEdit = $db->prepare($query);
+	$requestEdit->execute(array(
+		'content' => $_POST['n_content'],
+		'id' => $_POST['n_id']
+	));
 }
 
 
@@ -189,6 +199,7 @@ showNotes($notes);
 				<label for="new-note-content">Note à ajouter</label><br>
 				<input type="text" name="n_content" id="new-note-content">
 			</p>
+			<input type="hidden" name="add_a_note">
 			<p>
 				<input type="submit" value="Ajouter une note">
 			</p>
