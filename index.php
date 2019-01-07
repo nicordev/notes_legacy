@@ -35,10 +35,13 @@ if (isset($_POST['n_id']) AND isset($_POST['delete_a_note']))
  */
 function dbConnect($host, $databaseName, $user, $password, $charset = 'utf8') {
 
-    try {
+    try
+    {
         $db = new \PDO('mysql:host=' . $host . ';dbname=' . $databaseName . ';charset=' . $charset, $user, $password);
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING); // On émet une alerte à chaque fois qu'une requête a échoué.
-    } catch(Exception $e) {
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // On émet une alerte à chaque fois qu'une requête a échoué.
+    }
+    catch(Exception $e)
+    {
         return false;
     }
     return $db;
@@ -99,7 +102,7 @@ function showNotes(array $notes)
 		{
 ?>
 		<form action="index.php" method="post">
-			<input type="hidden" name="n_id" <?= 'value="' . $note['n_id'] . '"' ?>>
+			<input type="hidden" name="n_id" <?= 'value="' . htmlspecialchars($note['n_id']) . '"' ?>>
 			<button class="note-btn" type="submit">🖉</button>
 		</form>
 <?php
@@ -128,13 +131,13 @@ function showNoteContent($note)
 			<form action="index.php" method="post">
 				<input class="note-edit" type="text" name="n_content" <?= 'value="' . $note['n_content'] . '"' ?>>
 				<input type="hidden" name="edit_a_note">
-				<input type="hidden" name="n_id" <?= 'value="' . $_POST['n_id'] . '"' ?>>
+				<input type="hidden" name="n_id" <?= 'value="' . htmlspecialchars($_POST['n_id']) . '"' ?>>
 				<input class="note-btn" type="submit" value="🗸">
 			</form>
 			<!-- Delete the note -->
 			<form action="index.php" method="post">
 				<input type="hidden" name="delete_a_note">
-				<input type="hidden" name="n_id" <?= 'value="' . $_POST['n_id'] . '"' ?>>
+				<input type="hidden" name="n_id" <?= 'value="' . htmlspecialchars($_POST['n_id']) . '"' ?>>
 				<input class="note-btn" type="submit" value="❌">
 			</form>
 <?php
@@ -157,7 +160,7 @@ function addANewNote($db)
 	$query = 'INSERT INTO dn_note(n_creation_date, n_content)
 		VALUES (NOW(), ?)';
 	$requestAdd = $db->prepare($query);
-	$requestAdd->execute(array($_POST['n_content']));
+	$requestAdd->execute(array(htmlspecialchars($_POST['n_content'])));
 }
 
 /**
@@ -172,7 +175,7 @@ function editANote($db)
 
 	$requestEdit = $db->prepare($query);
 	$requestEdit->execute(array(
-		'content' => $_POST['n_content'],
+		'content' => htmlspecialchars($_POST['n_content']),
 		'id' => $_POST['n_id']
 	));
 }
@@ -186,7 +189,7 @@ function deleteANote($db)
 	$query = 'DELETE FROM dn_note
 		WHERE n_id = :id';
 	$requestDelete = $db->prepare($query);
-	$requestDelete->execute(array('id' => $_POST['n_id']));
+	$requestDelete->execute(array('id' => htmlspecialchars($_POST['n_id'])));
 }
 
 
