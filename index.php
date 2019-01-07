@@ -56,25 +56,9 @@ function getNotes(PDO $db)
 	$query = 'SELECT * FROM dn_note';
 	
 	$requestAll = $db->query($query);
-	while ($data = $requestAll->fetch())
-	{
-		$notes[] = getAssociativeData($data);
-	}
+	$notes = $requestAll->fetchAll(PDO::FETCH_ASSOC);
 
 	return $notes;
-}
-
-function getAssociativeData($data)
-{
-	$associativeArray = array();
-
-	foreach ($data as $key => $value) {
-		if (!is_numeric($key))
-		{
-			$associativeArray[$key] = $value;
-		}
-	}
-	return $associativeArray;
 }
 
 /**
