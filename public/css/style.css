@@ -22,10 +22,16 @@ li
 	margin: 10px 0;
 }
 
+#notes-wrapper
+{
+	margin: 50px 0;
+}
+
 .page-content
 {
 	margin: auto;
 	max-width: 1000px;
+	width: 80%;
 }
 
 .note-content
@@ -45,9 +51,23 @@ li
 	border-radius: 100%;
 }
 
+.note-btn2
+{
+	border-radius: 10px;
+	border: 1px solid rgb(73, 73, 73);
+	padding: 5px 10px;
+}
+
 .note-edit
 {
 	border-radius: 10px;
 	padding: 0 10px;
 	border: 1px solid green;
+}
+
+.my_input
+{
+	border: none;
+	border-bottom: 2px solid grey;
+	width: 85%;
 }

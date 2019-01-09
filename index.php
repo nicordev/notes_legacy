@@ -1,21 +1,22 @@
 <?php
 
 $db = dbConnect('localhost', 'db_note', 'root', '');
+// $db = dbConnect('sansgodapfnicor.mysql.db', 'sansgodapfnicor', 'sansgodapfnicor', 'viveLeDev7');
 $notes = getNotes($db);
 
-if (isset($_POST['n_content']) AND isset($_POST['add_a_note']))
+if (isset($_POST['n_content']) && isset($_POST['add_a_note']) && !empty($_POST['n_content']))
 {
 	addANewNote($db);
 	header('Location: index.php');
 }
 
-if (isset($_POST['n_id']) AND isset($_POST['edit_a_note']))
+if (isset($_POST['n_id']) && isset($_POST['edit_a_note']))
 {
 	editANote($db);
 	header('Location: index.php');
 }
 
-if (isset($_POST['n_id']) AND isset($_POST['delete_a_note']))
+if (isset($_POST['n_id']) && isset($_POST['delete_a_note']))
 {
 	deleteANote($db);
 	header('Location: index.php');
@@ -209,11 +210,11 @@ showNotes($notes);
 		<form method="post" action="index.php">
 			<p>
 				<label for="new-note-content">Note à ajouter</label><br>
-				<input type="text" name="n_content" id="new-note-content">
+				<input class="my_input" type="text" name="n_content" id="new-note-content">
 			</p>
 			<input type="hidden" name="add_a_note">
 			<p>
-				<input type="submit" value="Ajouter une note">
+				<input class="note-btn2" type="submit" value="Ajouter une note">
 			</p>
 		</form>
 	</div>
