@@ -6,7 +6,7 @@
  * Time: 09:03
  */
 
-namespace App;
+namespace MyNotes;
 
 use mysql_xdevapi\Exception;
 

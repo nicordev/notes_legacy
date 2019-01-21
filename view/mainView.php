@@ -1,0 +1,26 @@
+<section class="page-content">
+    <!-- Saved notes -->
+    <div id="notes-wrapper">
+        <?php
+        require 'viewAllNotes.php';
+        ?>
+    </div>
+
+    <!-- Add a new note -->
+    <div id="new-note-form-wrapper">
+        <form method="post" action="index.php">
+            <p>
+                <label for="new-note-title">Note à ajouter</label><br>
+                <input class="my_input" type="text" name="n_title" id="new-note-title">
+            </p>
+            <p>
+                <label for="new-note-content">Détail</label><br>
+                <input class="my_input" type="text" name="n_content" id="new-note-content">
+            </p>
+            <input type="hidden" name="add_a_note">
+            <p>
+                <input class="note-btn2" type="submit" value="Ajouter une note">
+            </p>
+        </form>
+    </div>
+</section>

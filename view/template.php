@@ -6,11 +6,11 @@
 
 	    <link rel="stylesheet" href="public/css/style.css">
 
-	    <title>Note</title>
+	    <title>Notes</title>
 	</head>
 	<body>
 	    <header>
-	        <h1>Note</h1>
+	        <h1>Notes</h1>
 	    </header>
 	    
 	    <?= $content; ?>

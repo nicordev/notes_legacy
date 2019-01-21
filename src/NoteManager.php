@@ -6,7 +6,7 @@
  * Time: 09:12
  */
 
-namespace App;
+namespace MyNotes;
 
 
 use PDO;
@@ -117,6 +117,21 @@ class NoteManager
             'content' => $modifiedNote->getContent(),
             'id' => $modifiedNote->getId()
         ]);
+    }
+
+    /**
+     * Get a note from the database
+     *
+     * @param $noteId
+     * @return Note
+     */
+    public function getANote($noteId)
+    {
+        $query = 'SELECT * FROM dn_note WHERE n_id = ?';
+        $requestANote = $this->db->prepare($query);
+        $requestANote->execute([$noteId]);
+
+        return new Note($requestANote->fetch(PDO::FETCH_ASSOC));
     }
 
 }
