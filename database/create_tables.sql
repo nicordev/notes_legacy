@@ -10,6 +10,7 @@ CREATE TABLE dn_note(
     n_id INT UNSIGNED AUTO_INCREMENT,
     n_creation_date DATETIME,
     n_modification_date DATETIME,
+    n_title TEXT,
     n_content TEXT,
 
     PRIMARY KEY (n_id)

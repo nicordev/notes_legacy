@@ -1,7 +1,7 @@
-INSERT INTO dn_note(n_creation_date, n_content)
-VALUES (NOW(), 'Aller à la déchetterie'),
-	(NOW(), 'Faire le point sur les prénoms'),
-	(NOW(), 'Faire un framework perso pour simplifier HTML et CSS');
+INSERT INTO dn_note(n_creation_date, n_title, n_content)
+VALUES (NOW(), 'Aller à la déchetterie', ''),
+	(NOW(), 'Faire le point sur les prénoms', ''),
+	(NOW(), 'Faire un framework perso pour simplifier HTML et CSS', 'Attention les yeux, ça va piquer !');
 
 INSERT INTO dn_tag(t_name)
 VALUES ('A faire'),

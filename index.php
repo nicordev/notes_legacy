@@ -1,70 +1,70 @@
 <?php
 
-$db = dbConnect('localhost', 'db_note', 'root', '');
-// $db = dbConnect('sansgodapfnicor.mysql.db', 'sansgodapfnicor', 'sansgodapfnicor', 'viveLeDev7');
-$notes = getNotes($db);
+use App\Autoloader;
+use App\Note;
+use App\NoteManager;
 
-if (isset($_POST['n_content']) && isset($_POST['add_a_note']) && !empty($_POST['n_content']))
-{
-	addANewNote($db);
-	header('Location: index.php');
-}
+require "src/Autoloader.php";
+
+Autoloader::register();
+
+$noteManager = new NoteManager();
+
+// Add a new note
+
+//$_POST['n_title'] = 'title of the new note';
+//$_POST['n_content'] = 'Content of the new note';
+//$_POST['add_a_note'] = 1;
+//
+//if (isset($_POST['n_title'])
+//    && isset($_POST['n_content'])
+//    && isset($_POST['add_a_note'])
+//    && !empty($_POST['n_title']))
+//{
+//    $newNote = new Note($_POST);
+//    $noteManager->addANewNote($newNote);
+////    header('Location: index.php');
+//}
+
+$notes = $noteManager->getNotes();
+var_dump($notes);
+
+// Delete a note
+
+//$_POST['n_id'] = 67;
+//$_POST['delete_a_note'] = 1;
+//
+//if (isset($_POST['n_id']) && isset($_POST['delete_a_note']))
+//{
+//    $noteManager->deleteANote($_POST['n_id']);
+////    header('Location: index.php');
+//}
+
+// Edit a note
+
+$_POST['n_id'] = 68;
+$_POST['n_title'] = 'Titre de la note modifiée';
+$_POST['n_content'] = 'Contenu de la note modifiée';
+$_POST['edit_a_note'] = 1;
 
 if (isset($_POST['n_id']) && isset($_POST['edit_a_note']))
 {
-	editANote($db);
-	header('Location: index.php');
+    $modifiedNote = new Note($_POST);
+    $noteManager->editANote($modifiedNote);
+//    header('Location: index.php');
 }
 
-if (isset($_POST['n_id']) && isset($_POST['delete_a_note']))
-{
-	deleteANote($db);
-	header('Location: index.php');
-}
+$notes = $noteManager->getNotes();
+
+var_dump($notes);
+
+die;
+
+
+
+
 
 // Functions
-
-/**
- *  Create a PDO object for a database
- *
- *  @param {String} $host server
- *  @param {String} $databaseName
- *  @param {String} $user
- *  @param {String} $password
- *  @param {Strong} $charset = 'utf8'
- *	@return PDO
- */
-function dbConnect($host, $databaseName, $user, $password, $charset = 'utf8') {
-
-    try
-    {
-        $db = new \PDO('mysql:host=' . $host . ';dbname=' . $databaseName . ';charset=' . $charset, $user, $password);
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // On émet une alerte à chaque fois qu'une requête a échoué.
-    }
-    catch(Exception $e)
-    {
-        return false;
-    }
-    return $db;
-}
-
-/**
- * Get saved notes
- * @param  PDO    $db database
- * @return array     notes
- */
-function getNotes(PDO $db)
-{
-	$notes = array();
-	
-	$query = 'SELECT * FROM dn_note';
-	
-	$requestAll = $db->query($query);
-	$notes = $requestAll->fetchAll(PDO::FETCH_ASSOC);
-
-	return $notes;
-}
-
 /**
  * Show notes in HTML tags
  * @param  array  $notes
@@ -158,46 +158,8 @@ function showNoteContent($note)
 	}
 }
 
-/**
- * Add a new note in the database. Uses $_POST.
- * @param PDO $db the database
- */
-function addANewNote($db)
-{
-	$query = 'INSERT INTO dn_note(n_creation_date, n_content)
-		VALUES (NOW(), ?)';
-	$requestAdd = $db->prepare($query);
-	$requestAdd->execute(array(htmlspecialchars($_POST['n_content'])));
-}
 
-/**
- * Edit a note in the database. Uses $_POST.
- * @param  PDO] $db the database
- */
-function editANote($db)
-{
-	$query = 'UPDATE dn_note
-		SET n_content = :content, n_modification_date = NOW()
-		WHERE n_id = :id';
 
-	$requestEdit = $db->prepare($query);
-	$requestEdit->execute(array(
-		'content' => htmlspecialchars($_POST['n_content']),
-		'id' => $_POST['n_id']
-	));
-}
-
-/**
- * Delete a note in the database. Uses $_POST.
- * @param  PDO $db the database
- */
-function deleteANote($db)
-{
-	$query = 'DELETE FROM dn_note
-		WHERE n_id = :id';
-	$requestDelete = $db->prepare($query);
-	$requestDelete->execute(array('id' => htmlspecialchars($_POST['n_id'])));
-}
 
 
 // View
