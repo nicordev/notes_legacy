@@ -1,6 +1,4 @@
-<?php
 
-?>
     <ul>
         <?php
         foreach ($this->notes as $note) {
@@ -26,4 +24,3 @@
         }
         ?>
     </ul>
-<?php
