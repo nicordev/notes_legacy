@@ -40,6 +40,16 @@ li
 	color: grey;
 }
 
+.note-title
+{
+	font-weight: bold;
+}
+
+.note-content
+{
+	color: grey;
+}
+
 .note-btn
 {
 	font-size: 0.75em;
@@ -61,14 +71,6 @@ li
 	width: 85%;
 }
 
-.my_input
-{
-	padding: 10px 0;
-	border: none;
-	border-bottom: 2px solid grey;
-	width: 85%;
-}
-
 .note-commands
 {
 	display: flex;
@@ -77,4 +79,12 @@ li
 .note-commands form
 {
 	margin: 0 10px;
+}
+
+.my_input
+{
+	padding: 10px 0;
+	border: none;
+	border-bottom: 2px solid grey;
+	width: 85%;
 }

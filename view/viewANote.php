@@ -3,6 +3,10 @@
     <span class="note-title"><?= $note->getTitle() ?></span>
 </div>
 
+<div>
+    <span class="note-content"><?= $note->getContent() ?></span>
+</div>
+
 <!-- Infos -->
 <div>
     <?php
