@@ -8,7 +8,7 @@
 
 namespace MyNotes;
 
-use mysql_xdevapi\Exception;
+use \Exception;
 
 class Note
 {
@@ -17,6 +17,32 @@ class Note
     private $modificationDate;
     private $title = '';
     private $content = '';
+
+    /**
+     * Note constructor.
+     * @param array $data
+     */
+    public function __construct(array $data = [])
+    {
+        if (!empty($data)) {
+            if (isset($data['n_id']))
+                $this->id = htmlspecialchars($data['n_id']);
+
+            if (isset($data['n_creation_date']))
+                $this->creationDate = htmlspecialchars($data['n_creation_date']);
+
+            if (isset($data['n_modification_date']))
+                $this->modificationDate = htmlspecialchars($data['n_modification_date']);
+
+            if (isset($data['n_title']))
+                $this->title = htmlspecialchars($data['n_title']);
+
+            if (isset($data['n_content']))
+                $this->content = htmlspecialchars($data['n_content']);
+        } else {
+            throw new Exception('Le tableau $data est vide.');
+        }
+    }
 
     /**
      * @return string
@@ -50,28 +76,6 @@ class Note
         $this->modificationDate = $modificationDate;
     }
 
-    public function __construct(array $data = [])
-    {
-        if (!empty($data)) {
-            if (isset($data['n_id']))
-                $this->id = htmlspecialchars($data['n_id']);
-
-            if (isset($data['n_creation_date']))
-                $this->creationDate = htmlspecialchars($data['n_creation_date']);
-
-            if (isset($data['n_modification_date']))
-                $this->modificationDate = htmlspecialchars($data['n_modification_date']);
-
-            if (isset($data['n_title']))
-                $this->title = htmlspecialchars($data['n_title']);
-
-            if (isset($data['n_content']))
-                $this->content = htmlspecialchars($data['n_content']);
-        } else {
-            throw new Exception('Le tableau $data est vide.');
-        }
-    }
-
     /**
      * @return string
      */
@@ -83,7 +87,7 @@ class Note
     /**
      * @param string $title
      */
-    public function setTitle($title)
+    public function setTitle(string $title)
     {
         $this->title = $title;
     }
@@ -99,14 +103,25 @@ class Note
     /**
      * @param string $content
      */
-    public function setContent($content)
+    public function setContent(string $content)
     {
         $this->content = $content;
     }
 
+    /**
+     * @return string
+     */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
 }

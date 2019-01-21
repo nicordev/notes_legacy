@@ -15,7 +15,7 @@
             </p>
             <p>
                 <label for="new-note-content">Détail</label><br>
-                <input class="my_input" type="text" name="n_content" id="new-note-content">
+                <textarea class="my_input" name="n_content" id="new-note-content" cols="30" rows="10"></textarea>
             </p>
             <input type="hidden" name="add_a_note">
             <p>

@@ -6,13 +6,15 @@ namespace MyNotes;
 class NoteController
 {
     public $noteManager;
-    public $noteToEdit = null;
+    public $noteToEditId = null;
+    private $lastId = -1;
     private $notes = [];
 
     public function __construct()
     {
         $this->noteManager = new NoteManager();
         $this->notes = $this->noteManager->getAllNotes();
+        $this->lastId = end($this->notes)->getId();
     }
 
     /**
@@ -29,11 +31,12 @@ class NoteController
 
     /**
      * @param Note $newNote
+     * @throws \Exception
      */
     public function addANewNote(Note $newNote)
     {
-        $this->notes[] = $newNote;
-        $this->noteManager->addANewNote($newNote);
+        $newNote = $this->noteManager->addANewNote($newNote);
+        $this->notes[$newNote->getId()] = $newNote;
     }
 
     /**
@@ -43,6 +46,11 @@ class NoteController
     {
         unset($this->notes[$noteId]);
         $this->noteManager->deleteANote($noteId);
+    }
+
+    public function editANote(Note $modifiedNote)
+    {
+        $this->notes[$modifiedNote->getId()] = $this->noteManager->editANote($modifiedNote);
     }
 
     /**
@@ -56,5 +64,17 @@ class NoteController
                 return $note;
             }
         }
+    }
+
+    /**
+     * @param Note $note
+     * @return bool
+     */
+    public function isTheNoteToEdit(Note $note) : bool
+    {
+        if ($note->getId() === $this->noteToEditId) {
+            return true;
+        }
+        return false;
     }
 }

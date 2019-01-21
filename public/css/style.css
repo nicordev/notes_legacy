@@ -34,16 +34,6 @@ li
 	width: 80%;
 }
 
-.note-title
-{
-
-}
-
-.note-content
-{
-
-}
-
 .info-date
 {
 	font-size: 0.75em;
@@ -73,6 +63,7 @@ li
 
 .my_input
 {
+	padding: 10px 0;
 	border: none;
 	border-bottom: 2px solid grey;
 	width: 85%;

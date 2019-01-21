@@ -53,6 +53,7 @@ class NoteManager
      * Get saved notes from the database
      *
      * @return array notes
+     * @throws \Exception
      */
     public function getAllNotes() : array
     {
@@ -63,7 +64,7 @@ class NoteManager
         $notesFromDb = $requestAll->fetchAll(PDO::FETCH_ASSOC); // It would be nice to use PDO::FETCH_CLASS
 
         foreach ($notesFromDb as $note) {
-            $notes[] = new Note($note);
+            $notes[$note['n_id']] = new Note($note);
         }
 
         return $notes;
@@ -73,8 +74,10 @@ class NoteManager
      * Add a new note in the database.
      *
      * @param Note $newNote
+     * @return Note
+     * @throws \Exception
      */
-    public function addANewNote(Note $newNote) : void
+    public function addANewNote(Note $newNote) : Note
     {
         $query = 'INSERT INTO dn_note(n_creation_date, n_title, n_content)
 		VALUES (NOW(), ?, ?)';
@@ -84,6 +87,20 @@ class NoteManager
             $newNote->getTitle(),
             $newNote->getContent()
         ]);
+
+        return $this->getANote($this->getLastNoteId());
+    }
+
+    /**
+     * @return mixed
+     */
+    private function getLastNoteId()
+    {
+        $query = 'SELECT MAX(n_id) FROM dn_note';
+        $requestLastId = $this->db->query($query);
+        $lastId = $requestLastId->fetch(PDO::FETCH_NUM);
+
+        return $lastId[0];
     }
 
     /**
@@ -104,6 +121,8 @@ class NoteManager
      * Edit a note in the database.
      *
      * @param Note $modifiedNote
+     * @return Note
+     * @throws \Exception
      */
     public function editANote(Note $modifiedNote)
     {
@@ -117,6 +136,8 @@ class NoteManager
             'content' => $modifiedNote->getContent(),
             'id' => $modifiedNote->getId()
         ]);
+
+        return $this->getANote($modifiedNote->getId());
     }
 
     /**
@@ -124,6 +145,7 @@ class NoteManager
      *
      * @param $noteId
      * @return Note
+     * @throws \Exception
      */
     public function getANote($noteId)
     {
