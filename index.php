@@ -135,12 +135,18 @@ function showNoteContent($note)
 				<input type="hidden" name="n_id" <?= 'value="' . htmlspecialchars($_POST['n_id']) . '"' ?>>
 				<input class="note-btn" type="submit" value="🗸">
 			</form>
-			<!-- Delete the note -->
-			<form action="index.php" method="post">
-				<input type="hidden" name="delete_a_note">
-				<input type="hidden" name="n_id" <?= 'value="' . htmlspecialchars($_POST['n_id']) . '"' ?>>
-				<input class="note-btn" type="submit" value="❌">
-			</form>
+			<div class="note-commands">
+				<!-- Cancel -->
+				<form action="index.php" method="post">
+					<input class="note-btn" type="submit" value="Annuler">
+				</form>
+				<!-- Delete the note -->
+				<form action="index.php" method="post">
+					<input type="hidden" name="delete_a_note">
+					<input type="hidden" name="n_id" <?= 'value="' . htmlspecialchars($_POST['n_id']) . '"' ?>>
+					<input class="note-btn" type="submit" value="❌">
+				</form>
+			</div>
 <?php
 	}
 	// We show just the note to read
