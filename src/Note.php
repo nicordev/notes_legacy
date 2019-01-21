@@ -18,6 +18,38 @@ class Note
     private $title = '';
     private $content = '';
 
+    /**
+     * @return string
+     */
+    public function getCreationDate(): ?string
+    {
+        return $this->creationDate;
+    }
+
+    /**
+     * @param string $creationDate
+     */
+    public function setCreationDate(string $creationDate): void
+    {
+        $this->creationDate = $creationDate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getModificationDate(): ?string
+    {
+        return $this->modificationDate;
+    }
+
+    /**
+     * @param string $modificationDate
+     */
+    public function setModificationDate(string $modificationDate): void
+    {
+        $this->modificationDate = $modificationDate;
+    }
+
     public function __construct(array $data = [])
     {
         if (!empty($data)) {
@@ -43,7 +75,7 @@ class Note
     /**
      * @return string
      */
-    public function getTitle()
+    public function getTitle() : ?string
     {
         return $this->title;
     }
@@ -59,7 +91,7 @@ class Note
     /**
      * @return string
      */
-    public function getContent()
+    public function getContent() : ?string
     {
         return $this->content;
     }

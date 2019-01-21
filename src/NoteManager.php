@@ -54,7 +54,7 @@ class NoteManager
      *
      * @return array notes
      */
-    public function getNotes() : array
+    public function getAllNotes() : array
     {
         $notes = [];
         $query = 'SELECT * FROM dn_note';
@@ -72,31 +72,31 @@ class NoteManager
     /**
      * Add a new note in the database.
      *
-     * @param Note $note
+     * @param Note $newNote
      */
-    public function addANewNote(Note $note) : void
+    public function addANewNote(Note $newNote) : void
     {
         $query = 'INSERT INTO dn_note(n_creation_date, n_title, n_content)
 		VALUES (NOW(), ?, ?)';
 
         $requestAdd = $this->db->prepare($query);
         $requestAdd->execute([
-            $note->getTitle(),
-            $note->getContent()
+            $newNote->getTitle(),
+            $newNote->getContent()
         ]);
     }
 
     /**
      * Delete a note in the database.
      *
-     * @param $noteId
+     * @param $noteToDeleteId
      */
-    public function deleteANote($noteId)
+    public function deleteANote($noteToDeleteId)
     {
         $query = 'DELETE FROM dn_note
 		WHERE n_id = :id';
         $requestDelete = $this->db->prepare($query);
-        $requestDelete->execute(['id' => htmlspecialchars($noteId)]);
+        $requestDelete->execute(['id' => htmlspecialchars($noteToDeleteId)]);
     }
 
 
