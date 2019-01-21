@@ -14,7 +14,8 @@ class NoteController
     {
         $this->noteManager = new NoteManager();
         $this->notes = $this->noteManager->getAllNotes();
-        $this->lastId = end($this->notes)->getId();
+        if (!empty($this->notes))
+            $this->lastId = end($this->notes)->getId();
     }
 
     /**

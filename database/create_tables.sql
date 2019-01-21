@@ -1,6 +1,6 @@
 
-USE db_note;
--- USE sansgodapfnicor;
+-- USE db_note;
+USE sansgodapfnicor;
 
 DROP TABLE IF EXISTS dn_note_tag;
 DROP TABLE IF EXISTS dn_note;
