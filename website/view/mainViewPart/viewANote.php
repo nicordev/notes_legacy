@@ -1,12 +1,16 @@
 <!-- View a note -->
-<div>
+<div class="note-title-wrapper">
     <span class="note-title"><?= $note->getTitle() ?></span>
 </div>
-
-<div>
-    <span class="note-content"><?= $note->getContent() ?></span>
-</div>
-
+<?php
+if (!empty($note->getContent())) {
+    ?>
+    <div class="note-content-wrapper">
+        <span class="note-content"><?= $note->getContent() ?></span>
+    </div>
+    <?php
+}
+?>
 <!-- Infos -->
 <div>
     <?php

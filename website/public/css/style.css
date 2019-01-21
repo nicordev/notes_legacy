@@ -45,9 +45,19 @@ li
 	font-weight: bold;
 }
 
+.note-title-wrapper
+{
+	margin-top: 20px;
+}
+
 .note-content
 {
 	color: grey;
+}
+
+.note-content-wrapper
+{
+	padding: 10px 0 10px 50px;
 }
 
 .note-btn
