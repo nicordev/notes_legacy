@@ -52,6 +52,7 @@ li
 
 .note-btn
 {
+	border: 1px solid rgb(73, 73, 73);
 	font-size: 0.75em;
 	border-radius: 100%;
 }
@@ -95,4 +96,16 @@ li
 	border: none;
 	border-bottom: 2px solid grey;
 	width: 85%;
+}
+
+/* Colors */
+.red
+{
+	color: rgb(206, 66, 66);
+}
+
+/* Size */
+.big
+{
+	font-size: 2em;
 }

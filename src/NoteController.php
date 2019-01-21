@@ -26,7 +26,7 @@ class NoteController
         require 'view/mainView.php';
         $content = ob_get_clean();
 
-        require 'view/template.php';
+        require 'view/layout/template.php';
     }
 
     /**
