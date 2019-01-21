@@ -63,7 +63,15 @@ li
 	padding: 5px 10px;
 }
 
-.note-edit
+.note-edit-title
+{
+	border-radius: 10px;
+	padding: 0 10px;
+	border: 1px solid green;
+	width: 85%;
+}
+
+.note-edit-content
 {
 	border-radius: 10px;
 	padding: 0 10px;
