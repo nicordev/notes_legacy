@@ -6,7 +6,7 @@
             <input class="note-btn big" type="submit" value="🗸">
         </p>
         <p>
-            <textarea class="note-edit-content" name="n_content" cols="30" rows="10"></textarea>
+            <textarea class="note-edit-content" name="n_content" cols="30" rows="10"><?= $note->getContent() ?></textarea>
         </p>
         <input type="hidden" name="save_modifications">
         <input type="hidden" name="n_id" <?= 'value="' . $note->getId() . '"' ?>>

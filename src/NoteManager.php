@@ -24,6 +24,7 @@ class NoteManager
     public function __construct()
     {
         $this->db = self::getPdo('localhost', 'db_note', 'root', '');
+//        $this->db = self::getPdo('sansgodapfnicor.mysql.db', 'sansgodapfnicor', 'sansgodapfnicor', 'viveLeDev7');
     }
 
     /**
@@ -55,7 +56,7 @@ class NoteManager
      * @return array notes
      * @throws \Exception
      */
-    public function getAllNotes() : array
+    public function getAllNotes()
     {
         $notes = [];
         $query = 'SELECT * FROM dn_note';
@@ -77,7 +78,7 @@ class NoteManager
      * @return Note
      * @throws \Exception
      */
-    public function addANewNote(Note $newNote) : Note
+    public function addANewNote(Note $newNote)
     {
         $query = 'INSERT INTO dn_note(n_creation_date, n_title, n_content)
 		VALUES (NOW(), ?, ?)';

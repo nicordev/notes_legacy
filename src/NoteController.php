@@ -57,7 +57,7 @@ class NoteController
      * @param $noteId
      * @return Note
      */
-    public function getANote($noteId) : Note
+    public function getANote($noteId)
     {
         foreach ($this->notes as $note) {
             if ($note->getId() === $noteId) {
@@ -70,7 +70,7 @@ class NoteController
      * @param Note $note
      * @return bool
      */
-    public function isTheNoteToEdit(Note $note) : bool
+    public function isTheNoteToEdit(Note $note)
     {
         if ($note->getId() === $this->noteToEditId) {
             return true;

@@ -21,6 +21,7 @@ class Note
     /**
      * Note constructor.
      * @param array $data
+     * @throws Exception
      */
     public function __construct(array $data = [])
     {
@@ -47,7 +48,7 @@ class Note
     /**
      * @return string
      */
-    public function getCreationDate(): ?string
+    public function getCreationDate()
     {
         return $this->creationDate;
     }
@@ -55,7 +56,7 @@ class Note
     /**
      * @param string $creationDate
      */
-    public function setCreationDate(string $creationDate): void
+    public function setCreationDate(string $creationDate)
     {
         $this->creationDate = $creationDate;
     }
@@ -63,7 +64,7 @@ class Note
     /**
      * @return string
      */
-    public function getModificationDate(): ?string
+    public function getModificationDate()
     {
         return $this->modificationDate;
     }
@@ -71,7 +72,7 @@ class Note
     /**
      * @param string $modificationDate
      */
-    public function setModificationDate(string $modificationDate): void
+    public function setModificationDate(string $modificationDate)
     {
         $this->modificationDate = $modificationDate;
     }
@@ -79,7 +80,7 @@ class Note
     /**
      * @return string
      */
-    public function getTitle() : ?string
+    public function getTitle()
     {
         return $this->title;
     }
@@ -95,7 +96,7 @@ class Note
     /**
      * @return string
      */
-    public function getContent() : ?string
+    public function getContent()
     {
         return $this->content;
     }
