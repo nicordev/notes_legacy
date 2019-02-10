@@ -23,8 +23,11 @@ class NoteManager
      */
     public function __construct()
     {
-        $this->db = self::getPdo('localhost', 'db_note', 'root', '');
-//        $this->db = self::getPdo('sansgodapfnicor.mysql.db', 'sansgodapfnicor', 'sansgodapfnicor', 'viveLeDev7');
+        if ($_SERVER['SERVER_NAME'] === 'localhost') {
+            $this->db = self::getPdo('localhost', 'db_note', 'root', '');
+        } else {
+            $this->db = self::getPdo('sansgodapfnicor.mysql.db', 'sansgodapfnicor', 'sansgodapfnicor', 'viveLeDev7');
+        }
     }
 
     /**
