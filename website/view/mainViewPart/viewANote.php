@@ -1,12 +1,12 @@
 <!-- View a note -->
 <div class="note-title-wrapper">
-    <span class="note-title"><?= $note->getTitle() ?></span>
+    <span class="note-title"><?= htmlspecialchars_decode($note->getTitle()) ?></span>
 </div>
 <?php
 if (!empty($note->getContent())) {
     ?>
     <div class="note-content-wrapper">
-        <span class="note-content"><?= $note->getContent() ?></span>
+        <span class="note-content"><?= htmlspecialchars_decode($note->getContent()) ?></span>
     </div>
     <?php
 }

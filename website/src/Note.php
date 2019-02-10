@@ -12,11 +12,11 @@ use \Exception;
 
 class Note
 {
-    private $id;
-    private $creationDate;
-    private $modificationDate;
-    private $title = '';
-    private $content = '';
+    private $id = null;
+    private $creationDate = null;
+    private $modificationDate = null;
+    private $title = null;
+    private $content = null;
 
     /**
      * Note constructor.
@@ -27,7 +27,7 @@ class Note
     {
         if (!empty($data)) {
             if (isset($data['n_id']))
-                $this->id = htmlspecialchars($data['n_id']);
+                $this->id = (int) $data['n_id'];
 
             if (isset($data['n_creation_date']))
                 $this->creationDate = htmlspecialchars($data['n_creation_date']);

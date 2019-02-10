@@ -1,20 +1,21 @@
 
     <ul>
         <?php
-        foreach ($this->notes as $note) {
+        foreach ($notes as $note) {
             ?>
             <li>
                 <div class="note-wrapper">
                     <?php
-                    if ($this->isTheNoteToEdit($note))
+                    if ($note->getId() === $noteToEditId) {
                         require 'editANote.php';
-                    else
+                    } else {
                         require 'viewANote.php';
+                    }
                     ?>
                 </div>
 
                 <?php
-                if (!$this->isTheNoteToEdit($note))
+                if ($note->getId() !== $noteToEditId)
                 {
                     require 'editANoteButton.php';
                 }

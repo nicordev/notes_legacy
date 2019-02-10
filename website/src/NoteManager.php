@@ -62,10 +62,9 @@ class NoteManager
         $query = 'SELECT * FROM dn_note';
 
         $requestAll = $this->db->query($query);
-        $notesFromDb = $requestAll->fetchAll(PDO::FETCH_ASSOC); // It would be nice to use PDO::FETCH_CLASS
 
-        foreach ($notesFromDb as $note) {
-            $notes[$note['n_id']] = new Note($note);
+        while($noteData = $requestAll->fetch(PDO::FETCH_ASSOC)) {
+            $notes[] = new Note($noteData);
         }
 
         return $notes;
