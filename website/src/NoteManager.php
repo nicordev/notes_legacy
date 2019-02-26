@@ -59,10 +59,19 @@ class NoteManager
      * @return array notes
      * @throws \Exception
      */
-    public function getAllNotes()
+    public function getAllNotes(bool $orderByModificationDate = false, bool $desc = true)
     {
+        if ($orderByModificationDate) {
+            $orderBy = 'n_modification_date';
+        } else {
+            $orderBy = 'n_creation_date';
+        }
         $notes = [];
-        $query = 'SELECT * FROM dn_note';
+        $query = 'SELECT * FROM dn_note ORDER BY ' . $orderBy;
+
+        if ($desc) {
+            $query .= ' DESC';
+        }
 
         $requestAll = $this->db->query($query);
 
