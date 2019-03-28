@@ -12,11 +12,12 @@ use \Exception;
 
 class Note
 {
-    private $id = null;
-    private $creationDate = null;
-    private $modificationDate = null;
-    private $title = null;
-    private $content = null;
+    private $id;
+    private $creationDate;
+    private $modificationDate;
+    private $status;
+    private $title;
+    private $content;
 
     /**
      * Note constructor.
@@ -40,6 +41,10 @@ class Note
 
             if (isset($data['n_content']))
                 $this->content = htmlspecialchars($data['n_content']);
+
+            if (isset($data['n_status']))
+                $this->status = htmlspecialchars($data['n_status']);
+
         } else {
             throw new Exception('Le tableau $data est vide.');
         }
@@ -123,6 +128,22 @@ class Note
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status): void
+    {
+        $this->status = $status;
     }
 
 }

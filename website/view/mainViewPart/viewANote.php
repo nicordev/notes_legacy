@@ -1,6 +1,7 @@
 <!-- View a note -->
 <div class="note-title-wrapper">
-    <span class="note-title"><?= htmlspecialchars_decode($note->getTitle()) ?></span>
+    <span class="note-status"><?= $note->getStatus() ?></span>
+    <span class="note-title"><?= $note->getTitle() ?></span>
 </div>
 <?php
 if (!empty($note->getContent())) {

@@ -7,6 +7,8 @@ class Application
 {
     public function run()
     {
+        define('ROOT_PATH', dirname(__DIR__));
+
         $noteController = new NoteController();
         $noteToEdit = null;
 

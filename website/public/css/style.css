@@ -74,20 +74,22 @@ li
 	padding: 5px 10px;
 }
 
-.note-edit-title
-{
+.note-edit {
 	border-radius: 10px;
 	padding: 0 10px;
 	border: 1px solid green;
 	width: 85%;
 }
 
-.note-edit-content
-{
-	border-radius: 10px;
-	padding: 0 10px;
-	border: 1px solid green;
-	width: 85%;
+.small {
+	width: 200px;
+}
+
+.note-status {
+	border-radius: 3px;
+	padding: 3px 5px;
+	background-color: darkslategray;
+	color: whitesmoke;
 }
 
 .note-commands

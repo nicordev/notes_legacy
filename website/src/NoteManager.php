@@ -20,42 +20,20 @@ class NoteManager
 
     /**
      * NoteManager constructor.
+     *
+     * @throws \Exception
      */
     public function __construct()
     {
-        if ($_SERVER['SERVER_NAME'] === 'localhost') {
-            $this->db = self::getPdo('localhost', 'db_note', 'root', '');
-        } else {
-            $this->db = self::getPdo('sansgodapfnicor.mysql.db', 'sansgodapfnicor', 'sansgodapfnicor', 'viveLeDev7');
-        }
-    }
-
-    /**
-     * @param string $host
-     * @param string $databaseName
-     * @param string $user
-     * @param string $password
-     * @param string $charset
-     * @return bool|PDO
-     */
-    public static function getPdo($host = 'localhost', $databaseName = 'test', $user = 'root', $password = '', $charset = 'utf8')
-    {
-        try
-        {
-            $db = new PDO('mysql:host=' . $host . ';dbname=' . $databaseName . ';charset=' . $charset, $user, $password);
-            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // On émet une alerte à chaque fois qu'une requête a échoué.
-        }
-        catch(Exception $e)
-        {
-            return false;
-        }
-        return $db;
+        $this->db = Database::getPdo();
     }
 
 
     /**
      * Get saved notes from the database
      *
+     * @param bool $orderByModificationDate
+     * @param bool $desc
      * @return array notes
      * @throws \Exception
      */
@@ -139,13 +117,14 @@ class NoteManager
     public function editANote(Note $modifiedNote)
     {
         $query = 'UPDATE dn_note
-		SET n_title = :title, n_content = :content, n_modification_date = NOW()
+		SET n_title = :title, n_content = :content, n_status = :noteStatus, n_modification_date = NOW()
 		WHERE n_id = :id';
 
         $requestEdit = $this->db->prepare($query);
         $requestEdit->execute([
             'title' => $modifiedNote->getTitle(),
             'content' => $modifiedNote->getContent(),
+            'noteStatus' => $modifiedNote->getStatus(),
             'id' => $modifiedNote->getId()
         ]);
 

@@ -3,7 +3,7 @@
 use MyNotes\Autoloader;
 use MyNotes\Application;
 
-require "src/Autoloader.php";
+require dirname(__DIR__) . "/src/Autoloader.php";
 
 Autoloader::register();
 

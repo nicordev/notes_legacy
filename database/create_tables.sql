@@ -1,6 +1,6 @@
 
 -- USE db_note;
-USE sansgodapfnicor;
+-- USE sansgodapfnicor;
 
 DROP TABLE IF EXISTS dn_note_tag;
 DROP TABLE IF EXISTS dn_note;
@@ -10,6 +10,7 @@ CREATE TABLE dn_note(
     n_id INT UNSIGNED AUTO_INCREMENT,
     n_creation_date DATETIME,
     n_modification_date DATETIME,
+    n_status VARCHAR(100) DEFAULT 'new',
     n_title TEXT,
     n_content TEXT,
 

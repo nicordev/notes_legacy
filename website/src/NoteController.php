@@ -32,10 +32,10 @@ class NoteController
         $notes = $this->noteManager->getAllNotes();
 
         ob_start();
-        require 'view/mainView.php';
+        require ROOT_PATH . '/view/mainView.php';
         $content = ob_get_clean();
 
-        require 'view/layout/template.php';
+        require ROOT_PATH . '/view/layout/template.php';
     }
 
     /**
