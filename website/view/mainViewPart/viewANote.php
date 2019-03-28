@@ -1,6 +1,8 @@
 <!-- View a note -->
 <div class="note-title-wrapper">
-    <span class="note-status"><?= $note->getStatus() ?></span>
+    <?php if (!empty($note->getStatus())) { ?>
+        <span class="note-status"><?= $note->getStatus() ?></span>
+    <?php } ?>
     <span class="note-title"><?= $note->getTitle() ?></span>
 </div>
 <?php

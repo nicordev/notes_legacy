@@ -1,4 +1,4 @@
-<form method="post" action="index.php">
+<form method="post" action="">
     <p>
         <label for="new-note-title">Note à ajouter</label><br>
         <input class="my_input" type="text" name="n_title" id="new-note-title">

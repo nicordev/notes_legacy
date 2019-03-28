@@ -29,7 +29,7 @@ class NoteController
      */
     public function showAllNotes(int $noteToEditId = null)
     {
-        $notes = $this->noteManager->getAllNotes();
+        $notes = $this->noteManager->getAllNotes(false, true, self::getFilter());
 
         ob_start();
         require ROOT_PATH . '/view/mainView.php';
@@ -74,5 +74,19 @@ class NoteController
     public function getANote($noteId)
     {
         return $this->getANote($noteId);
+    }
+
+    /**
+     * Get a filter to show some particular notes
+     *
+     * @return string|null
+     */
+    private static function getFilter()
+    {
+        if (isset($_GET['filter']) && $_GET['filter'] === "all") {
+            return null;
+        } else {
+            return "new";
+        }
     }
 }

@@ -34,24 +34,36 @@ class NoteManager
      *
      * @param bool $orderByModificationDate
      * @param bool $desc
+     * @param string|null $filterStatus
      * @return array notes
      * @throws \Exception
      */
-    public function getAllNotes(bool $orderByModificationDate = false, bool $desc = true)
+    public function getAllNotes(bool $orderByModificationDate = false, bool $desc = true, ?string $filterStatus = null)
     {
+        $notes = [];
+        $query = 'SELECT * FROM dn_note';
+
+        if ($filterStatus) {
+            $query .= " WHERE n_status=:noteStatus";
+        }
+
         if ($orderByModificationDate) {
             $orderBy = 'n_modification_date';
         } else {
             $orderBy = 'n_creation_date';
         }
-        $notes = [];
-        $query = 'SELECT * FROM dn_note ORDER BY ' . $orderBy;
+        $query .= ' ORDER BY ' . $orderBy;
 
         if ($desc) {
             $query .= ' DESC';
         }
 
-        $requestAll = $this->db->query($query);
+        if ($filterStatus) {
+            $requestAll = $this->db->prepare($query);
+            $requestAll->execute(["noteStatus" => $filterStatus]);
+        } else {
+            $requestAll = $this->db->query($query);
+        }
 
         while($noteData = $requestAll->fetch(PDO::FETCH_ASSOC)) {
             $notes[] = new Note($noteData);

@@ -24,7 +24,7 @@ app.engine=php
 ; for phpcgi:
 ;   this options is ignored (= fallback in AUTO)
 ;
-app.engine.version=7.0
+app.engine.version=7.3
 
 ; __http.firewall__ used to add application firewall  (filter http requests)
 ;
