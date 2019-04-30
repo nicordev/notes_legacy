@@ -3,7 +3,7 @@
     <?php if (!empty($note->getStatus())) { ?>
         <span class="note-status"><?= $note->getStatus() ?></span>
     <?php } ?>
-    <span class="note-title"><?= $note->getTitle() ?></span>
+    <span class="note-title"><?= htmlspecialchars_decode($note->getTitle()) ?></span>
 </div>
 <?php
 if (!empty($note->getContent())) {

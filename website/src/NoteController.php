@@ -76,6 +76,8 @@ class NoteController
         return $this->getANote($noteId);
     }
 
+    // Static
+
     /**
      * Get a filter to show some particular notes
      *
