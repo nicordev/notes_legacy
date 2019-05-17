@@ -16,6 +16,10 @@
 	    </header>
 	    
 	    <?= $content; ?>
-	    
+        <script src="public/js/marked.js"></script>
+        <script src="public/js/notes.js"></script>
+        <script>
+            notes.markdownDecode();
+        </script>
 	</body>
 </html>
