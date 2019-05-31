@@ -2,7 +2,7 @@
 <div id="note-to-edit">
     <form action="" method="post">
         <p>
-            <input class="note-edit" type="text" name="n_title" <?= 'value="' . $note->getTitle() . '"' ?>>
+            <input class="note-edit" type="text" name="n_title" <?= 'value="' . htmlspecialchars_decode($note->getTitle()) . '"' ?>>
             <input class="note-btn big" type="submit" value="🗸">
         </p>
         <p>
